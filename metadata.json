@@ -1,0 +1,6 @@
+{
+  "name": "Cadence — Own Your Time",
+  "description": "The free and flexible scheduling app that puts you in control, not your calendar. No data selling, no vendor lock-in.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
