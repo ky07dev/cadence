@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Coleção de pedidos de propostas
+    match /proposalRequests/{requestId} {
+      allow get, list: if true;
+      allow write: if isValidId(requestId);
+    }
+
+    // Coleção de propostas geradas
+    match /proposals/{token} {
+      allow get, list: if true;
+      allow write: if isValidId(token);
+    }
+
+    // Regra padrão de bloqueio para quaisquer outras coleções
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

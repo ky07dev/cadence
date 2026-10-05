@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "ProposalRequest": {
+      "title": "ProposalRequest",
+      "description": "Customer request for a custom plan proposal submitted via landing page",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the requester",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address to receive the generated proposal"
+        },
+        "needs": {
+          "type": "string",
+          "description": "Description of the user or team scheduling needs",
+          "minLength": 20,
+          "maxLength": 2000
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the proposal generation lifecycle",
+          "enum": ["pending", "generating", "sent", "failed"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the request was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the request was last updated"
+        },
+        "proposalUrl": {
+          "type": "string",
+          "description": "URL to the generated proposal document"
+        },
+        "proposalToken": {
+          "type": "string",
+          "description": "Security token of the generated proposal"
+        },
+        "sentAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the proposal email was successfully sent"
+        },
+        "emailMessageId": {
+          "type": "string",
+          "description": "Message ID returned by the email provider"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Error message if proposal generation failed"
+        },
+        "attempts": {
+          "type": "integer",
+          "description": "Count of processing attempts"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "needs",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "attempts"
+      ]
+    }
+  },
+  "firestore": {
+    "/proposalRequests/{requestId}": {
+      "schema": "ProposalRequest",
+      "description": "Stores proposal requests submitted through the backend endpoint"
+    }
+  }
+}
